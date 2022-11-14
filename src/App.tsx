@@ -3,9 +3,7 @@ import './App.css'
 import Map from './components/map'
 
 const App: React.FunctionComponent = () => {
-  return (
-      <Map/>
-  )
+  return <Map />
 }
 
 export default App
