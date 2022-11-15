@@ -10,7 +10,7 @@ interface Props {
 
 const FileUploadDownload: React.FunctionComponent<Props> = ({ handleSaveFile, handleUploadFile }) => {
   const [file, setFile] = useState<File>()
-  const [saveName, setSaveName] = useState('')
+  const [saveName, setSaveName] = useState('test.geojson')
 
   const handleChange = (event: any): void => {
     setSaveName(event.target.value)
