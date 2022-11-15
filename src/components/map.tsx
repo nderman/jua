@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, FeatureGroup } from 'react-leaflet'
 import { EditControl } from 'react-leaflet-draw'
 import 'leaflet-draw/dist/leaflet.draw.css'
 import L from 'leaflet'
-import FileUploadSingle from './FileUploadSingle'
+import FileUploadDownload from './FileUploadDownload/FileUploadDownload'
 import { saveAs } from 'file-saver'
 
 const Map: React.FunctionComponent = () => {
@@ -15,14 +15,14 @@ const Map: React.FunctionComponent = () => {
     })
   }
 
-  const handleSaveFile = async (): Promise<void> => {
+  const handleSaveFile = (filename: string): void => {
     console.log(featureGroupRef.current.toGeoJSON())
     const str = JSON.stringify(featureGroupRef.current.toGeoJSON())
     const bytes = new TextEncoder().encode(str)
     const blob = new Blob([bytes], {
       type: 'application/json;charset=utf-8'
     })
-    saveAs(blob, 'test.geojson')
+    saveAs(blob, filename)
   }
 
   return (
@@ -42,17 +42,7 @@ const Map: React.FunctionComponent = () => {
             />
           </FeatureGroup>
         </MapContainer>
-        <FileUploadSingle handleUploadFile={handleUploadFile} />
-        <label>
-          File Name:
-          <input type="text" name="name" />
-          <button
-            onClick={() => {
-              void handleSaveFile()
-            }}>
-            Save
-          </button>
-        </label>
+        <FileUploadDownload handleSaveFile={handleSaveFile} handleUploadFile={handleUploadFile} />
       </div>
     </div>
   )
